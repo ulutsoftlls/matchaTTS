@@ -20,7 +20,6 @@ def parse_filelist(filelist_path, split_char="|"):
             tmp = line.strip().split(split_char)
             tmp[0] = '/mnt/ks/Works/voice_ulut/m_wavs/' + tmp[0] + '.wav'
             filepaths_and_text.append(tmp)
-        print(filepaths_and_text)
     return filepaths_and_text
 
 
