@@ -5,7 +5,7 @@ default_root_dir: ${paths.output_dir}
 max_epochs: -1
 
 accelerator: gpu
-devices: [5]
+devices: [4]
 
 # mixed precision for extra speed-up
 precision: 16-mixed
