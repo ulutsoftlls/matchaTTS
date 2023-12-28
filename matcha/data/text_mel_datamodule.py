@@ -14,7 +14,13 @@ from matcha.utils.utils import intersperse
 
 def parse_filelist(filelist_path, split_char="|"):
     with open(filelist_path, encoding="utf-8") as f:
-        filepaths_and_text = [line.strip().split(split_char) for line in f]
+        # filepaths_and_text = [line.strip().split(split_char) for line in f]
+        filepaths_and_text = []
+        for line in f:
+            tmp = line.strip().split(split_char)
+            tmp[0] = '/home/bektemir/Desktop/my_projects/matchaTTS/data/m_wavs/' + tmp[0] + '.wav'
+            filepaths_and_text.append(tmp)
+        print(filepaths_and_text)
     return filepaths_and_text
 
 
