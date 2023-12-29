@@ -24,8 +24,15 @@ critical_logger.setLevel(logging.CRITICAL)
 # Intializing the phonemizer globally significantly reduces the speed
 # now the phonemizer is not initialising at every call
 # Might be less flexible, but it is much-much faster
+# global_phonemizer = phonemizer.backend.EspeakBackend(
+#     language="en-us",
+#     preserve_punctuation=True,
+#     with_stress=True,
+#     language_switch="remove-flags",
+#     logger=critical_logger,
+# )
 global_phonemizer = phonemizer.backend.EspeakBackend(
-    language="en-us",
+    language="ky",
     preserve_punctuation=True,
     with_stress=True,
     language_switch="remove-flags",
