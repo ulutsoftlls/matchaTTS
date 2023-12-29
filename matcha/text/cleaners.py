@@ -39,7 +39,11 @@ global_phonemizer = phonemizer.backend.EspeakBackend(
     logger=critical_logger,
 )
 kyrgyz_phonemizer = phonemizer.backend.EspeakBackend(
-    language="ky"
+    language="ky",
+    preserve_punctuation=True,
+    with_stress=True,
+    language_switch="remove-flags",
+    logger=critical_logger,
 )
 
 
