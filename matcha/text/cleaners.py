@@ -111,7 +111,7 @@ def english_cleaners2(text):
     phonemes = collapse_whitespace(phonemes)
     return phonemes
 
-def kygyz_cleaners2(text):
+def kygryz_cleaners2(text):
     """Pipeline for English text, including abbreviation expansion. + punctuation + stress"""
     text = convert_to_ascii(text)
     text = lowercase(text)
