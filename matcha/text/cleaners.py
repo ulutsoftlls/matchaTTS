@@ -115,7 +115,7 @@ def english_cleaners2(text):
     return phonemes
 
 
-def kygryz_english_cleaners2(text):
+def kygryz_cleaners2(text):
     text = convert_to_ascii(text)
     text = lowercase(text)
     phonemes = kyrgyz_phonemizer.phonemize([text], strip=True, njobs=1)[0]
