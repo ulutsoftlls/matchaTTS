@@ -48,6 +48,7 @@ def sequence_to_text(sequence):
 def _clean_text(text, cleaner_names):
     for name in cleaner_names:
         cleaner = getattr(cleaners, name)
+        print('cleaner = ', cleaner)
         if not cleaner:
             raise Exception("Unknown cleaner: %s" % name)
         text = cleaner(text)
