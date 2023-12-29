@@ -32,18 +32,14 @@ critical_logger.setLevel(logging.CRITICAL)
 #     logger=critical_logger,
 # )
 global_phonemizer = phonemizer.backend.EspeakBackend(
-    language="ky",
+    language="en-us",
     preserve_punctuation=True,
     with_stress=True,
     language_switch="remove-flags",
     logger=critical_logger,
 )
 kyrgyz_phonemizer = phonemizer.backend.EspeakBackend(
-    language="ky",
-    preserve_punctuation=True,
-    with_stress=True,
-    language_switch="remove-flags",
-    logger=critical_logger,
+    language="ky"
 )
 
 
@@ -122,7 +118,6 @@ def english_cleaners2(text):
 def kygryz_english_cleaners2(text):
     text = convert_to_ascii(text)
     text = lowercase(text)
-    text = expand_abbreviations(text)
     phonemes = kyrgyz_phonemizer.phonemize([text], strip=True, njobs=1)[0]
     phonemes = collapse_whitespace(phonemes)
     return phonemes
