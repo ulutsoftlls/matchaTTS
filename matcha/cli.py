@@ -77,6 +77,7 @@ def assert_required_models_available(args):
         assert_model_downloaded(model_path, MATCHA_URLS[args.model])
 
     vocoder_path = save_dir / f"{args.vocoder}"
+    print(VOCODER_URLS)
     assert_model_downloaded(vocoder_path, VOCODER_URLS[args.vocoder])
     return {"matcha": model_path, "vocoder": vocoder_path}
 
@@ -93,6 +94,7 @@ def load_hifigan(checkpoint_path, device):
 def load_vocoder(vocoder_name, checkpoint_path, device):
     print(f"[!] Loading {vocoder_name}!")
     vocoder = None
+    vocoder_name = 'hifigan_T2_v1'
     if vocoder_name in ("hifigan_T2_v1", "hifigan_univ_v1"):
         vocoder = load_hifigan(checkpoint_path, device)
     else:
@@ -227,7 +229,7 @@ def cli():
     parser.add_argument(
         "--vocoder",
         type=str,
-        default=None,
+        default='hifigan_univ_v1',
         help="Vocoder to use (default: will use the one suggested with the pretrained model))",
         choices=VOCODER_URLS.keys(),
     )

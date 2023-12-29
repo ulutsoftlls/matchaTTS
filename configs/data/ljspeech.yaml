@@ -5,7 +5,7 @@ valid_filelist_path: /mnt/ks/Works/matchaTTS/data/validate.txt
 batch_size: 32
 num_workers: 20
 pin_memory: True
-cleaners: [english_cleaners2]
+cleaners: [kygryz_english_cleaners2]
 add_blank: True
 n_spks: 1
 n_fft: 1024

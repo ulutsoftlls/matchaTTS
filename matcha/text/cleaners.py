@@ -31,6 +31,13 @@ global_phonemizer = phonemizer.backend.EspeakBackend(
     language_switch="remove-flags",
     logger=critical_logger,
 )
+kyrgyz_phonemizer = phonemizer.backend.EspeakBackend(
+    language="ky",
+    preserve_punctuation=True,
+    with_stress=True,
+    language_switch="remove-flags",
+    logger=critical_logger,
+)
 
 
 # Regular expression matching whitespace:
@@ -101,5 +108,14 @@ def english_cleaners2(text):
     text = lowercase(text)
     text = expand_abbreviations(text)
     phonemes = global_phonemizer.phonemize([text], strip=True, njobs=1)[0]
+    phonemes = collapse_whitespace(phonemes)
+    return phonemes
+
+
+def kygryz_english_cleaners2(text):
+    text = convert_to_ascii(text)
+    text = lowercase(text)
+    text = expand_abbreviations(text)
+    phonemes = kyrgyz_phonemizer.phonemize([text], strip=True, njobs=1)[0]
     phonemes = collapse_whitespace(phonemes)
     return phonemes
