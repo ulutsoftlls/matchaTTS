@@ -24,22 +24,9 @@ critical_logger.setLevel(logging.CRITICAL)
 # Intializing the phonemizer globally significantly reduces the speed
 # now the phonemizer is not initialising at every call
 # Might be less flexible, but it is much-much faster
-# global_phonemizer = phonemizer.backend.EspeakBackend(
-#     language="en-us",
-#     preserve_punctuation=True,
-#     with_stress=True,
-#     language_switch="remove-flags",
-#     logger=critical_logger,
-# )
+
 global_phonemizer = phonemizer.backend.EspeakBackend(
     language="en-us",
-    preserve_punctuation=True,
-    with_stress=True,
-    language_switch="remove-flags",
-    logger=critical_logger,
-)
-kyrgyz_phonemizer = phonemizer.backend.EspeakBackend(
-    language="ky",
     preserve_punctuation=True,
     with_stress=True,
     language_switch="remove-flags",
@@ -118,10 +105,3 @@ def english_cleaners2(text):
     phonemes = collapse_whitespace(phonemes)
     return phonemes
 
-
-def kygryz_cleaners2(text):
-    # text = convert_to_ascii(text)
-    text = lowercase(text)
-    phonemes = kyrgyz_phonemizer.phonemize([text], strip=True, njobs=1)[0]
-    phonemes = collapse_whitespace(phonemes)
-    return phonemes
