@@ -1,7 +1,7 @@
 _target_: matcha.data.text_mel_datamodule.TextMelDataModule
 name: ljspeech
-train_filelist_path: /mnt/ks/Works/matchaTTS/data/women/train.txt
-valid_filelist_path: /mnt/ks/Works/matchaTTS/data/women/validate.txt
+train_filelist_path: /mnt/ks/Works/matchaTTS/data/uzakjol_data/train.txt
+valid_filelist_path: /mnt/ks/Works/matchaTTS/data/uzakjol_data/validate.txt
 batch_size: 32
 num_workers: 20
 pin_memory: True
@@ -10,7 +10,7 @@ add_blank: True
 n_spks: 1
 n_fft: 1024
 n_feats: 80
-sample_rate: 22050
+sample_rate: 16000
 hop_length: 256
 win_length: 1024
 f_min: 0
