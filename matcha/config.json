@@ -1,0 +1,21 @@
+{
+  "args": {
+    "steps": 10,
+    "temperature": 0.667,
+    "speaking_rate": 1.0,
+    "vocoder": "hifigan_univ_v1",
+    "model": "custom_model",
+    "spk": null,
+    "denoiser_strength": 0.00025,
+    "output_folder": "/home/bektemir/Desktop/my_projects/matchaTTS/data/",
+    "batched": false,
+    "batch_size": 32,
+    "vocoder_path": "/home/bektemir/.local/share/matcha_tts/hifigan_univ_v1",
+    "device": "cuda"
+  },
+  "models" : {
+    "1" : "/home/bektemir/Desktop/my_projects/matchaTTS/data/man/checkpoint_epoch=439.ckpt",
+    "2" : "/home/bektemir/Desktop/my_projects/matchaTTS/data/women/checkpoint_epoch=399.ckpt",
+    "3" : "/home/bektemir/Desktop/my_projects/matchaTTS/data/klara/checkpoint_epoch=4459.ckpt"
+  }
+}

@@ -248,7 +248,7 @@ def cli():
     parser.add_argument(
         "--speaking_rate",
         type=float,
-        default=None,
+        default=1.0,
         help="change the speaking rate, a higher value means slower speaking rate (default: 1.0)",
     )
     parser.add_argument("--steps", type=int, default=10, help="Number of ODE steps  (default: 10)")
@@ -272,7 +272,7 @@ def cli():
 
     args = parser.parse_args()
 
-    args = validate_args(args)
+    # args = validate_args(args)
     device = get_device(args)
     print_config(args)
     paths = assert_required_models_available(args)
@@ -290,7 +290,8 @@ def cli():
     model = load_matcha(args.model, paths["matcha"], device)
     vocoder, denoiser = load_vocoder(args.vocoder, paths["vocoder"], device)
 
-    texts = get_texts(args)
+    # texts = get_texts(args)
+    texts = ["Баарына салам"]
 
     spk = torch.tensor([args.spk], device=device, dtype=torch.long) if args.spk is not None else None
     time_v = time.time()
