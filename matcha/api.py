@@ -5,7 +5,7 @@ app = Flask(__name__)
 # Sample data
 data = {'message': 'Hello, Flask API!'}
 speaker_ids = ['1', '2', '3']
-speakers = {"1": TTS("1"), "2": TTS("2"), "3": TTS("3")}
+speakers = {"1": TTS("1"), "2": TTS("2"), "3": TTS("3"), "4": TTS("4")}
 # Route to get the data
 @app.route('/api/tts', methods=['POST'])
 def tts():

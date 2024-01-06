@@ -16,6 +16,7 @@
   "models" : {
     "1" : "/home/bektemir/Desktop/my_projects/matchaTTS/data/man/checkpoint_epoch=439.ckpt",
     "2" : "/home/bektemir/Desktop/my_projects/matchaTTS/data/women/checkpoint_epoch=399.ckpt",
-    "3" : "/home/bektemir/Desktop/my_projects/matchaTTS/data/klara/checkpoint_epoch=4459.ckpt"
+    "3" : "/home/bektemir/Desktop/my_projects/matchaTTS/data/klara/checkpoint_epoch=4459.ckpt",
+    "4" : "/home/bektemir/Desktop/my_projects/matchaTTS/data/zholdosh/checkpoint_epoch=439.ckpt"
   }
 }
