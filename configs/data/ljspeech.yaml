@@ -1,7 +1,7 @@
 _target_: matcha.data.text_mel_datamodule.TextMelDataModule
 name: ljspeech
-train_filelist_path: /mnt/ks/Works/matchaTTS/data/zholdosh_filelists/train.txt
-valid_filelist_path: /mnt/ks/Works/matchaTTS/data/zholdosh_filelists/validate.txt
+train_filelist_path: /mnt/ks/Works/matchaTTS/data/train.txt
+valid_filelist_path: /mnt/ks/Works/matchaTTS/data/validate.txt
 batch_size: 32
 num_workers: 20
 pin_memory: True
@@ -16,6 +16,6 @@ win_length: 1024
 f_min: 0
 f_max: 8000
 data_statistics:  # Computed for ljspeech dataset
-  mel_mean: -5.802175
-  mel_std: 3.761103
+  mel_mean: -5.336622
+  mel_std: 2.016101
 seed: ${seed}
