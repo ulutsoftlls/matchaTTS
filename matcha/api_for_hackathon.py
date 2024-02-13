@@ -38,7 +38,7 @@ def auth():
     token = token[len('Bearer '):]
     user = User.query.filter(User.token == token).first()
     if user is None:
-        return jsonify({'status': 'error', 'message': 'Invalid token'}), 401
+        return jsonify({'status': 'error', 'message': 'incorrect token'}), 401
     g.user = user
 
 @app.before_request
