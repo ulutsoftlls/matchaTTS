@@ -20,7 +20,7 @@ hydra:
     _target_: hydra_plugins.hydra_optuna_sweeper.optuna_sweeper.OptunaSweeper
 
     # storage URL to persist optimization results
-    # for example, you can use SQLite if you set 'sqlite:///example.db'
+    # for example, you can use SQLite if you set 'sqlite:///example.entities'
     storage: null
 
     # name of the study to persist optimization results
