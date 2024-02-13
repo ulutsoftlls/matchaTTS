@@ -20,8 +20,13 @@ with open('./matcha/config.json', 'r') as config_file:
     config = json.load(config_file)
 config_jwt_token = config.get('jwt_token')
 speaker_ids = ['1', '2']
-speakers = {"1": TTS("1"), "2": TTS("2")}
-
+# speakers = {"1": TTS("1"), "2": TTS("2")}
+# "2": {"1": TTS("1", 2), "2": TTS("2", 2)},
+# "3": {"1": TTS("1", 3), "2": TTS("2", 3)},
+speakers = {"4": {"1": TTS("1", 4), "2": TTS("2", 4)},
+            "5": {"1": TTS("1", 5), "2": TTS("2", 5)},
+            "6": {"1": TTS("1", 6), "2": TTS("2", 6)},
+            "7": {"1": TTS("1", 7), "2": TTS("2", 7)}}
 db_config = config.get('db_conf')
 app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql://{db_config.get('user_name')}:{db_config.get('password')}@localhost:3306/{db_config.get('db_name')}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -47,21 +52,13 @@ def before_request():
 @app.route('/api/tts', methods=['POST'])
 def tts():
     try:
-        form = Validator(request, speakers)
+        form = Validator(request, speaker_ids)
         current_utc_time = datetime.utcnow()
         new_query = Query(user_id=g.user.id, text_length=0, date=current_utc_time.replace(tzinfo=pytz.utc).astimezone(kyrgyzstan_timezone))
         if form.validate():
             text = form.getText()
             speaker_id = form.getSpeaker()
-
-            if speaker_id not in speaker_ids:
-                new_query.error_message = 'Invalid speaker ID'
-                new_query.status = 0
-                db.session.add(new_query)
-                db.session.commit()
-                return jsonify({'status': 'error', 'message': 'Invalid speaker_id'}), 400
-
-            model = speakers[speaker_id]
+            model = speakers[g.user.device][speaker_id]
             result = model.generate_audio(text)
             new_query.text_length = len(text)
             new_query.status = 1
