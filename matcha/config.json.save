@@ -14,8 +14,8 @@
     "device": "cuda:4"
   },
   "models" : {
-    "1" : "/mnt/ks/Works/matchaTTS/logs/train/ljspeech/runs/2024-02-12_14-57-34/checkpoints/checkpoint_epoch=199.ckpt",
-    "2" : "/mnt/ks/Works/matchaTTS/logs/train/ljspeech/runs/2024-02-09_12-48-59/checkpoints/checkpoint_epoch=479.ckpt",
+    "1" : "/mnt/ks/Works/matchaTTS/logs/train/ljspeech/runs/man_with_basic_cleaner/checkpoints/checkpoint_epoch=439.ckpt",
+    "2" : "/mnt/ks/Works/matchaTTS/logs/train/ljspeech/runs/2024-02-09_12-48-59/checkpoints/checkpoint_epoch=519.ckpt",
     "3" : "/mnt/ks/Works/matchaTTS/logs/train/ljspeech/runs/klara/checkpoints/checkpoint_epoch=4459.ckpt",
     "4" : "/mnt/ks/Works/matchaTTS/logs/train/ljspeech/runs/2024-01-02_15-40-56/checkpoints/checkpoint_epoch=439.ckpt"
   },

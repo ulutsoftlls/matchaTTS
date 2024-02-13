@@ -51,4 +51,4 @@ def tts_file():
 def hello():
     return "Welcome to TTS KG Application!"
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port="8089")
