@@ -14,7 +14,7 @@ class Validator:
             self.error_message = 'invalid text'
             return False
         if len(text) > 1000:
-            self.error_message = 'max text length is 100'
+            self.error_message = 'max text length is 1000 your text length is: ' + str(len(text))
             return False
         speaker = str(self.request.json.get('speaker_id'))
         if not speaker:
