@@ -6,6 +6,9 @@ class Validator:
         self.request = request
         self.speakers = speakers
     def validate(self):
+        if not self.request.is_json:
+            self.error_message = 'invalid fields, "text" and "speaker_id"'
+            return False
         text = self.request.json.get('text')
         if not text:
             self.error_message = 'invalid text'
