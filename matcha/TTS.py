@@ -10,12 +10,13 @@ from matcha.hifigan.env import AttrDict
 from matcha.hifigan.models import Generator as HiFiGAN
 from matcha.models.matcha_tts import MatchaTTS
 from matcha.text import sequence_to_text, text_to_sequence
+from matcha.text.numberworks_ky import numberreader
 from matcha.utils.utils import intersperse
 import json
 def process_text(i: int, text: str, device: torch.device):
     print(f"[{i}] - Input text: {text}")
     x = torch.tensor(
-        intersperse(text_to_sequence(text, ["basic_cleaners"]), 0),
+        intersperse(text_to_sequence(text, ["kygryz_cleaners2"]), 0),
         dtype=torch.long,
         device=device,
     )[None]
@@ -106,7 +107,7 @@ def unbatched_synthesis(args, device, model, vocoder, denoiser, texts):
 
 class TTS():
     def __init__(self, speaker_id):
-        with open('/home/bektemir/Desktop/my_projects/matchaTTS/matcha/config.json', 'r') as f:
+        with open('/mnt/ks/Works/matchaTTS/matcha/config.json', 'r') as f:
             self.config = json.load(f)
         self.args = self.config.get('args')
         self.device = self.args['device']
@@ -116,4 +117,5 @@ class TTS():
 
     @torch.inference_mode()
     def generate_audio(self, text):
+        text = numberreader(text)
         return unbatched_synthesis(self.args, self.device, self.model, self.vocoder, self.denoiser, [text])
