@@ -6,8 +6,8 @@ app = Flask(__name__)
 with open('/mnt/ks/Works/matchaTTS/matcha/config.json', 'r') as config_file:
     config = json.load(config_file)
 config_jwt_token = config.get('jwt_token')
-speaker_ids = ['1', '2', '3']
-speakers = {"1": TTS("1"), "2": TTS("2"), "3": TTS("3"), "4": TTS("4")}
+speaker_ids = ['1', '2']
+speakers = {"1": TTS("1"), "2": TTS("2")}
 # Route to get the data
 @app.route('/api/tts', methods=['POST'])
 def tts():
