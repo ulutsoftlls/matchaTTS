@@ -110,7 +110,7 @@ class TTS():
         with open('./matcha/config.json', 'r') as f:
             self.config = json.load(f)
         self.args = self.config.get('args')
-        self.device = self.args['device']+str(device)
+        self.device = self.args['device']+":"+str(device)
         self.paths = {"matcha": self.config.get('models').get(str(speaker_id)), "vocoder": self.args['vocoder_path']}
         self.model = load_matcha(self.args['model'], self.paths["matcha"], self.device)
         self.vocoder, self.denoiser = load_vocoder(self.args['vocoder'], self.paths["vocoder"], self.device)
