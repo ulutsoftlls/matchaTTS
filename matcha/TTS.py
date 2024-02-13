@@ -107,7 +107,7 @@ def unbatched_synthesis(args, device, model, vocoder, denoiser, texts):
 
 class TTS():
     def __init__(self, speaker_id):
-        with open('/mnt/ks/Works/matchaTTS/matcha/config.json', 'r') as f:
+        with open('./matcha/config.json', 'r') as f:
             self.config = json.load(f)
         self.args = self.config.get('args')
         self.device = self.args['device']
