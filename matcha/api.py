@@ -77,10 +77,10 @@ def tts():
             result = model.generate_audio(text)
             new_query.text_length = len(text)
             new_query.status = 1
-            db.session.add(new_query)
             new_response = SuccessfulQuery(query_id=new_query.id, audio_path=result)
-            db.session.add(new_response)
-            db.session.commit()
+            with db.session:
+                db.session.add(new_query)
+                db.session.add(new_response)
             return send_file(result, mimetype='audio/mpeg')
         else:
             errors = form.getErrorMessage()
