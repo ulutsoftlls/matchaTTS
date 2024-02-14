@@ -66,7 +66,7 @@ def before_request():
     return auth()
 
 
-@app.route('/tts', methods=['POST'])
+@app.route('/api/tts', methods=['POST'])
 def tts():
     try:
         form = Validator(request, speaker_ids)
