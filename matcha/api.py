@@ -10,12 +10,14 @@ from matcha.database import db
 from matcha.models.entities.Query import Query
 from matcha.models.entities.SuccessfulQuery import SuccessfulQuery
 from matcha.models.entities.User import User
+from werkzeug.exceptions import Unauthorized
+from flask_caching import Cache
 
 import pytz
 kyrgyzstan_timezone = pytz.timezone('Asia/Bishkek')
 
 app = Flask(__name__)
-
+cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 with open('./config.json', 'r') as config_file:
     config = json.load(config_file)
 config_jwt_token = config.get('jwt_token')
@@ -40,12 +42,23 @@ db.init_app(app)
 
 def auth():
     token = request.headers.get('Authorization')
-    if not token:
-        return jsonify({'status': 'error', 'message': 'Invalid token'}), 401
+    if not token or not token.startswith('Bearer '):
+        raise Unauthorized('Invalid token')
+
     token = token[len('Bearer '):]
-    user = User.query.filter(User.token == token).first()
+
+    # Check cache for user
+    user = cache.get(token)
     if user is None:
-        return jsonify({'status': 'error', 'message': 'incorrect token'}), 401
+        # If not in cache, query the database
+        user = User.query.filter(User.token == token).first()
+        if user is not None:
+            # Cache the user for future requests
+            cache.set(token, user)
+
+    if user is None:
+        raise Unauthorized('Incorrect token')
+
     g.user = user
 
 @app.before_request
