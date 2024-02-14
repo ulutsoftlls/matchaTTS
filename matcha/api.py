@@ -23,10 +23,10 @@ speaker_ids = ['1', '2']
 # speakers = {"1": TTS("1"), "2": TTS("2")}
 # "2": {"1": TTS("1", 2), "2": TTS("2", 2)},
 # "3": {"1": TTS("1", 3), "2": TTS("2", 3)},
-speakers = {"4": {"1": TTS("1", 4), "2": TTS("2", 4)},
-            "5": {"1": TTS("1", 5), "2": TTS("2", 5)},
-            "6": {"1": TTS("1", 6), "2": TTS("2", 6)},
-            "7": {"1": TTS("1", 7), "2": TTS("2", 7)}}
+speakers = {"4": {"1": TTS("1", config, 4), "2": TTS("2",config, 4)},
+            "5": {"1": TTS("1", config, 5), "2": TTS("2", config, 5)},
+            "6": {"1": TTS("1", config, 6), "2": TTS("2", config, 6)},
+            "7": {"1": TTS("1", config, 7), "2": TTS("2", config, 7)}}
 db_config = config.get('db_conf')
 app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql://{db_config.get('user_name')}:{db_config.get('password')}@localhost:3306/{db_config.get('db_name')}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
