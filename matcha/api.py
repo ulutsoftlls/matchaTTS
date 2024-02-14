@@ -88,10 +88,13 @@ def tts():
 
             new_response = SuccessfulQuery(query_id=new_query.id, audio_path=result)
 
-            with db.session.begin():
-                db.session.add(new_query)
-                db.session.add(new_response)
-
+            try:
+                with db.session.begin():
+                    db.session.add(new_query)
+                    db.session.add(new_response)
+            except:
+                db.session.rollback()
+                raise
             return send_file(result, mimetype='audio/mpeg')
 
         else:
@@ -99,8 +102,12 @@ def tts():
             new_query.error_message = errors
             new_query.status = 0
 
-            with db.session.begin():
-                db.session.add(new_query)
+            try:
+                with db.session.begin():
+                    db.session.add(new_query)
+            except:
+                db.session.rollback()
+                raise
 
             return jsonify({'status': 'error', 'message': 'Validation failed', 'errors': errors}), 400
 
@@ -120,8 +127,12 @@ def handle_error(message):
     current_utc_time = datetime.utcnow()
     new_query = Query(user_id=g.user.id, text_length=0, date=current_utc_time.replace(tzinfo=pytz.utc).astimezone(kyrgyzstan_timezone), error_message=message)
 
-    with db.session.begin():
-        db.session.add(new_query)
+    try:
+        with db.session.begin():
+            db.session.add(new_query)
+    except:
+        db.session.rollback()
+        raise
 @app.route("/")
 def hello():
     return "Welcome to TTS KG Application!"
