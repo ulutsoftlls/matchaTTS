@@ -3204,3 +3204,225 @@ Traceback (most recent call last):
   File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/shutil.py", line 729, in rmtree
     os.rmdir(path)
 OSError: [Errno 39] Directory not empty: '/tmp/pymp-990m7c5_'
+Exception in thread Thread-1:
+Traceback (most recent call last):
+Epoch 525/-2 ━━━━━━━╸         250/530 0:02:14 •       1.88it/s v_num: 0.000     
+                                      0:02:29                  loss/train_step: 
+                                                               4.034            
+                                                               loss/val_step:   
+                                                               2.739            
+                                                               loss/val_epoch:  
+                                                               3.271            
+                                                               loss/train_epoch:
+                                                               3.052              File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/fabric/loggers/tensorboard.py", line 208, in log_metrics
+
+    self.experiment.add_scalar(k, v, step)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/torch/utils/tensorboard/writer.py", line 387, in add_scalar
+    self._get_file_writer().add_summary(summary, global_step, walltime)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/torch/utils/tensorboard/writer.py", line 109, in add_summary
+    self.add_event(event, global_step, walltime)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/torch/utils/tensorboard/writer.py", line 94, in add_event
+    self.event_writer.add_event(event)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 117, in add_event
+    self._async_writer.write(event.SerializeToString())
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 178, in write
+    self._check_worker_status()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 212, in _check_worker_status
+    raise exception
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 244, in run
+    self._run()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 275, in _run
+    self._record_writer.write(data)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/summary/writer/record_writer.py", line 40, in write
+    self._writer.write(header + header_crc + data + footer_crc)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/compat/tensorflow_stub/io/gfile.py", line 773, in write
+    self.fs.append(self.filename, file_content, self.binary_mode)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/compat/tensorflow_stub/io/gfile.py", line 167, in append
+    self._write(filename, file_content, "ab" if binary_mode else "a")
+[[36m2024-02-14 11:06:41,901[0m][[34mmatcha.utils.utils[0m][[31mERROR[0m] - [0m
+Traceback (most recent call last):
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 44, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 580, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 989, in _run
+    results = self._run_stage()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1035, in _run_stage
+    self.fit_loop.run()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py", line 202, in run
+    self.advance()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py", line 359, in advance
+    self.epoch_loop.run(self._data_fetcher)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 136, in run
+    self.advance(data_fetcher)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 268, in advance
+    trainer._logger_connector.update_train_step_metrics()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/trainer/connectors/logger_connector/logger_connector.py", line 155, in update_train_step_metrics
+    self.log_metrics(self.metrics["log"])
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/trainer/connectors/logger_connector/logger_connector.py", line 109, in log_metrics
+    logger.log_metrics(metrics=scalar_metrics, step=step)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning_utilities/core/rank_zero.py", line 43, in wrapped_fn
+    return fn(*args, **kwargs)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/fabric/loggers/tensorboard.py", line 211, in log_metrics
+    raise ValueError(
+ValueError: 
+ you tried to log 5.221946776146069e-05 which is currently not supported. Try a dict or a scalar/tensor.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt/ks/Works/matchaTTS/matcha/utils/utils.py", line 76, in wrap
+    metric_dict, object_dict = task_func(cfg=cfg)
+  File "/mnt/ks/Works/matchaTTS/matcha/train.py", line 79, in train
+    trainer.fit(model=model, datamodule=datamodule, ckpt_path=cfg.get("ckpt_path"))
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 544, in fit
+    call._call_and_handle_interrupt(
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 67, in _call_and_handle_interrupt
+    logger.finalize("failed")
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning_utilities/core/rank_zero.py", line 43, in wrapped_fn
+    return fn(*args, **kwargs)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/loggers/tensorboard.py", line 217, in finalize
+    super().finalize(status)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning_utilities/core/rank_zero.py", line 43, in wrapped_fn
+    return fn(*args, **kwargs)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/fabric/loggers/tensorboard.py", line 288, in finalize
+    self.experiment.flush()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/torch/utils/tensorboard/writer.py", line 1233, in flush
+    writer.flush()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/torch/utils/tensorboard/writer.py", line 146, in flush
+    self.event_writer.flush()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 125, in flush
+    self._async_writer.flush()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 186, in flush
+    self._check_worker_status()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 212, in _check_worker_status
+    raise exception
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/fabric/loggers/tensorboard.py", line 208, in log_metrics
+    self.experiment.add_scalar(k, v, step)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/torch/utils/tensorboard/writer.py", line 387, in add_scalar
+    self._get_file_writer().add_summary(summary, global_step, walltime)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/torch/utils/tensorboard/writer.py", line 109, in add_summary
+    self.add_event(event, global_step, walltime)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/torch/utils/tensorboard/writer.py", line 94, in add_event
+    self.event_writer.add_event(event)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 117, in add_event
+    self._async_writer.write(event.SerializeToString())
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 178, in write
+    self._check_worker_status()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 212, in _check_worker_status
+    raise exception
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 244, in run
+    self._run()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 275, in _run
+    self._record_writer.write(data)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/summary/writer/record_writer.py", line 40, in write
+    self._writer.write(header + header_crc + data + footer_crc)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/compat/tensorflow_stub/io/gfile.py", line 773, in write
+    self.fs.append(self.filename, file_content, self.binary_mode)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/compat/tensorflow_stub/io/gfile.py", line 167, in append
+    self._write(filename, file_content, "ab" if binary_mode else "a")
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/compat/tensorflow_stub/io/gfile.py", line 171, in _write
+    with io.open(filename, mode, encoding=encoding) as f:
+FileNotFoundError: [Errno 2] No such file or directory: b'/mnt/ks/Works/matchaTTS/logs/train/ljspeech/runs/2024-02-12_14-57-34/tensorboard/version_0/events.out.tfevents.1707728256.dgx-1.617139.0'
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/compat/tensorflow_stub/io/gfile.py", line 171, in _write
+[[36m2024-02-14 11:06:41,914[0m][[34mmatcha.utils.utils[0m][[32mINFO[0m] - Output dir: /mnt/ks/Works/matchaTTS/logs/train/ljspeech/runs/2024-02-12_14-57-34[0m
+    with io.open(filename, mode, encoding=encoding) as f:
+FileNotFoundError: [Errno 2] No such file or directory: b'/mnt/ks/Works/matchaTTS/logs/train/ljspeech/runs/2024-02-12_14-57-34/tensorboard/version_0/events.out.tfevents.1707728256.dgx-1.617139.0'
+Error executing job with overrides: ['experiment=ljspeech']
+Traceback (most recent call last):
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 44, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 580, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 989, in _run
+    results = self._run_stage()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1035, in _run_stage
+    self.fit_loop.run()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py", line 202, in run
+    self.advance()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py", line 359, in advance
+    self.epoch_loop.run(self._data_fetcher)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 136, in run
+    self.advance(data_fetcher)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 268, in advance
+    trainer._logger_connector.update_train_step_metrics()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/trainer/connectors/logger_connector/logger_connector.py", line 155, in update_train_step_metrics
+    self.log_metrics(self.metrics["log"])
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/trainer/connectors/logger_connector/logger_connector.py", line 109, in log_metrics
+    logger.log_metrics(metrics=scalar_metrics, step=step)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning_utilities/core/rank_zero.py", line 43, in wrapped_fn
+    return fn(*args, **kwargs)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/fabric/loggers/tensorboard.py", line 211, in log_metrics
+    raise ValueError(
+ValueError: 
+ you tried to log 5.221946776146069e-05 which is currently not supported. Try a dict or a scalar/tensor.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt/ks/Works/matchaTTS/matcha/train.py", line 112, in main
+    metric_dict, _ = train(cfg)
+  File "/mnt/ks/Works/matchaTTS/matcha/utils/utils.py", line 86, in wrap
+    raise ex
+  File "/mnt/ks/Works/matchaTTS/matcha/utils/utils.py", line 76, in wrap
+    metric_dict, object_dict = task_func(cfg=cfg)
+  File "/mnt/ks/Works/matchaTTS/matcha/train.py", line 79, in train
+    trainer.fit(model=model, datamodule=datamodule, ckpt_path=cfg.get("ckpt_path"))
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 544, in fit
+    call._call_and_handle_interrupt(
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 67, in _call_and_handle_interrupt
+    logger.finalize("failed")
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning_utilities/core/rank_zero.py", line 43, in wrapped_fn
+    return fn(*args, **kwargs)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/pytorch/loggers/tensorboard.py", line 217, in finalize
+    super().finalize(status)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning_utilities/core/rank_zero.py", line 43, in wrapped_fn
+    return fn(*args, **kwargs)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/fabric/loggers/tensorboard.py", line 288, in finalize
+    self.experiment.flush()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/torch/utils/tensorboard/writer.py", line 1233, in flush
+    writer.flush()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/torch/utils/tensorboard/writer.py", line 146, in flush
+    self.event_writer.flush()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 125, in flush
+    self._async_writer.flush()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 186, in flush
+    self._check_worker_status()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 212, in _check_worker_status
+    raise exception
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/lightning/fabric/loggers/tensorboard.py", line 208, in log_metrics
+    self.experiment.add_scalar(k, v, step)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/torch/utils/tensorboard/writer.py", line 387, in add_scalar
+    self._get_file_writer().add_summary(summary, global_step, walltime)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/torch/utils/tensorboard/writer.py", line 109, in add_summary
+    self.add_event(event, global_step, walltime)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/torch/utils/tensorboard/writer.py", line 94, in add_event
+    self.event_writer.add_event(event)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 117, in add_event
+    self._async_writer.write(event.SerializeToString())
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 178, in write
+    self._check_worker_status()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 212, in _check_worker_status
+    raise exception
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 244, in run
+    self._run()
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 275, in _run
+    self._record_writer.write(data)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/summary/writer/record_writer.py", line 40, in write
+    self._writer.write(header + header_crc + data + footer_crc)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/compat/tensorflow_stub/io/gfile.py", line 773, in write
+    self.fs.append(self.filename, file_content, self.binary_mode)
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/compat/tensorflow_stub/io/gfile.py", line 167, in append
+    self._write(filename, file_content, "ab" if binary_mode else "a")
+  File "/home/user/anaconda3/envs/matcha-tts/lib/python3.10/site-packages/tensorboard/compat/tensorflow_stub/io/gfile.py", line 171, in _write
+    with io.open(filename, mode, encoding=encoding) as f:
+FileNotFoundError: [Errno 2] No such file or directory: b'/mnt/ks/Works/matchaTTS/logs/train/ljspeech/runs/2024-02-12_14-57-34/tensorboard/version_0/events.out.tfevents.1707728256.dgx-1.617139.0'
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+make: *** [Makefile:36: train-ljspeech] Error 1
