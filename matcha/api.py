@@ -78,7 +78,6 @@ def tts():
             new_query.text_length = len(text)
             new_query.status = 1
             db.session.add(new_query)
-            db.session.commit()
             new_response = SuccessfulQuery(query_id=new_query.id, audio_path=result)
             db.session.add(new_response)
             db.session.commit()

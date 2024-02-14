@@ -2,7 +2,7 @@ from matcha.database import db
 
 
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(255), nullable=True)
     token = db.Column(db.String(500), unique=True, nullable=False)
     device = db.Column(db.Integer, nullable=True)
