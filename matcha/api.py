@@ -16,17 +16,19 @@ kyrgyzstan_timezone = pytz.timezone('Asia/Bishkek')
 
 app = Flask(__name__)
 
-with open('./matcha/config.json', 'r') as config_file:
+with open('./config.json', 'r') as config_file:
     config = json.load(config_file)
 config_jwt_token = config.get('jwt_token')
 speaker_ids = ['1', '2']
 # speakers = {"1": TTS("1"), "2": TTS("2")}
-# "2": {"1": TTS("1", 2), "2": TTS("2", 2)},
-# "3": {"1": TTS("1", 3), "2": TTS("2", 3)},
-speakers = {"4": {"1": TTS("1", config, 4), "2": TTS("2",config, 4)},
+
+speakers = {"0": {"1": TTS("1", config, 0), "2": TTS("2", config, 0)},
+            "1": {"1": TTS("1", config, 1), "2": TTS("2", config, 1)},
+            "2": {"1": TTS("1", config, 2), "2": TTS("2", config, 2)},
+            "3": {"1": TTS("1", config, 3), "2": TTS("2", config, 3)},
+            "4": {"1": TTS("1", config, 4), "2": TTS("2", config, 4)},
             "5": {"1": TTS("1", config, 5), "2": TTS("2", config, 5)},
-            "6": {"1": TTS("1", config, 6), "2": TTS("2", config, 6)},
-            "7": {"1": TTS("1", config, 7), "2": TTS("2", config, 7)}}
+            "6": {"1": TTS("1", config, 6), "2": TTS("2", config, 6)}}
 db_config = config.get('db_conf')
 app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql://{db_config.get('user_name')}:{db_config.get('password')}@localhost:3306/{db_config.get('db_name')}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -58,7 +60,7 @@ def tts():
         if form.validate():
             text = form.getText()
             speaker_id = form.getSpeaker()
-            model = speakers[g.user.device][speaker_id]
+            model = speakers[str(g.user.device)][speaker_id]
             result = model.generate_audio(text)
             new_query.text_length = len(text)
             new_query.status = 1
@@ -87,7 +89,7 @@ def tts():
 def hello():
     return "Welcome to TTS KG Application!"
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', debug=True)
 
 
 # from flask import Flask, jsonify, request, send_file
