@@ -81,15 +81,15 @@ def tts():
             db.session.add(new_query)
             db.session.commit()
             new_response = SuccessfulQuery(query_id=new_query.id, audio_path=result)
-            with db.session.begin():
-                db.session.add(new_response)
+            db.session.add(new_response)
+            db.session.commit()
             return send_file(result, mimetype='audio/mpeg')
         else:
             errors = form.getErrorMessage()
             new_query.error_message = errors
             new_query.status = 0
-            with db.session.begin():
-                db.session.add(new_query)
+            db.session.add(new_query)
+            db.session.commit()
             return jsonify({'status': 'error', 'message': 'Validation failed', 'errors': errors}), 400
     except Exception as e:
         message = f"Error processing request: {e}"
