@@ -4,7 +4,7 @@ from flask import Flask, jsonify, request, send_file, g
 
 from TTS import TTS
 import json
-from werkzeug.exceptions import BadRequest
+
 from matcha.Validator import Validator
 from matcha.database import db
 from matcha.models.entities.Query import Query
@@ -64,64 +64,40 @@ def auth():
 @app.before_request
 def before_request():
     return auth()
-
-
 @app.route('/api/tts', methods=['POST'])
 def tts():
     try:
         form = Validator(request, speaker_ids)
         current_utc_time = datetime.utcnow()
-        new_query = Query(user_id=g.user.id, text_length=0,
-                          date=current_utc_time.replace(tzinfo=pytz.utc).astimezone(kyrgyzstan_timezone))
-
+        new_query = Query(user_id=g.user.id, text_length=0, date=current_utc_time.replace(tzinfo=pytz.utc).astimezone(kyrgyzstan_timezone))
         if form.validate():
             text = form.getText()
             speaker_id = form.getSpeaker()
-            model = speakers.get(str(g.user.device), {}).get(speaker_id)
-
-            if not model:
-                raise BadRequest("Invalid speaker or model not found.")
-
+            model = speakers[str(g.user.device)][speaker_id]
             result = model.generate_audio(text)
             new_query.text_length = len(text)
             new_query.status = 1
-
+            db.session.add(new_query)
+            db.session.commit()
             new_response = SuccessfulQuery(query_id=new_query.id, audio_path=result)
-
-            with db.session:
-                db.session.add(new_query)
-                db.session.add(new_response)
-
+            db.session.add(new_response)
+            db.session.commit()
             return send_file(result, mimetype='audio/mpeg')
-
         else:
             errors = form.getErrorMessage()
             new_query.error_message = errors
             new_query.status = 0
-
-            with db.session:
-                db.session.add(new_query)
-
+            db.session.add(new_query)
+            db.session.commit()
             return jsonify({'status': 'error', 'message': 'Validation failed', 'errors': errors}), 400
-
-    except BadRequest as e:
-        message = f"Bad Request: {e}"
-        handle_error(message)
-
     except Exception as e:
         message = f"Error processing request: {e}"
-        handle_error(message)
-
-    return jsonify({'status': 'error', 'message': 'Error processing request'}), 500
-
-
-def handle_error(message):
-    print(message)
-    current_utc_time = datetime.utcnow()
-    new_query = Query(user_id=g.user.id, text_length=0, date=current_utc_time.replace(tzinfo=pytz.utc).astimezone(kyrgyzstan_timezone), error_message=message)
-
-    with db.session:
+        print(message)
+        current_utc_time = datetime.utcnow()
+        new_query = Query(user_id=g.user.id, text_length=0, date=current_utc_time.replace(tzinfo=pytz.utc).astimezone(kyrgyzstan_timezone), error_message=message)
         db.session.add(new_query)
+        db.session.commit()
+        return jsonify({'status': 'error', 'message': 'Error processing request'}), 500
 @app.route("/")
 def hello():
     return "Welcome to TTS KG Application!"
