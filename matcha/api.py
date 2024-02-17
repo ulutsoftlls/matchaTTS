@@ -103,6 +103,13 @@ def tts():
 @app.route("/")
 def hello():
     return "Welcome to TTS KG Application!"
+
+@app.route('/check_cache')
+def check_cache():
+    all_keys = cache.cache._cache.keys()
+    cache_values = {key: cache.get(key) for key in all_keys}
+
+    return jsonify(cache_values)
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
 
