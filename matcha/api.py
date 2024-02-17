@@ -107,7 +107,7 @@ def hello():
 @app.route('/check_cache')
 def check_cache():
     all_keys = cache.cache._cache.keys()
-    cache_values = {key: cache.get(key) for key in all_keys}
+    cache_values = [key for key in all_keys]
 
     return jsonify(cache_values)
 if __name__ == '__main__':
