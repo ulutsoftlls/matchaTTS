@@ -2,20 +2,23 @@ class Validator:
     error_message = ''
     text = ''
     speaker_id = ''
-    def __init__(self, request, speakers):
+    def __init__(self, request, speakers, user):
         self.request = request
         self.speakers = speakers
+        self.user = user
     def validate(self):
         if not self.request.is_json:
             self.error_message = 'invalid fields, "text" and "speaker_id"'
             return False
         text = self.request.json.get('text')
+
         if not text:
             self.error_message = 'invalid text'
             return False
-        if len(text) > 1000:
-            self.error_message = 'max text length is 1000 your text length is: ' + str(len(text))
-            return False
+        if self.user.limit:
+            if len(text) > self.user.limit:
+                self.error_message = f"max text length is {self.user.limit} your text length is: {str(len(text))}"
+                return False
         speaker = str(self.request.json.get('speaker_id'))
         if not speaker:
             self.error_message = 'invalid speaker_id'

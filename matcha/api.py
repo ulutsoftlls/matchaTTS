@@ -20,15 +20,17 @@ app = Flask(__name__)
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 with open('./config.json', 'r') as config_file:
     config = json.load(config_file)
-config_jwt_token = config.get('jwt_token')
-speaker_ids = ['1', '2']
 
-#"0": {"1": TTS("1", config, 0), "2": TTS("2", config, 0)},
-#"1": {"1": TTS("1", config, 1), "2": TTS("2", config, 1)},
-#"2": {"1": TTS("1", config, 2), "2": TTS("2", config, 2)},
-#"3": {"1": TTS("1", config, 3), "2": TTS("2", config, 3)},
-#"5": {"1": TTS("1", config, 5), "2": TTS("2", config, 5)},
-#"6": {"1": TTS("1", config, 6), "2": TTS("2", config, 6)}
+
+
+# "0": {"1": TTS("1", config, 0), "2": TTS("2", config, 0)},
+# "1": {"1": TTS("1", config, 1), "2": TTS("2", config, 1)},
+# "2": {"1": TTS("1", config, 2), "2": TTS("2", config, 2)},
+# "3": {"1": TTS("1", config, 3), "2": TTS("2", config, 3)},
+# "5": {"1": TTS("1", config, 5), "2": TTS("2", config, 5)},
+# "6": {"1": TTS("1", config, 6), "2": TTS("2", config, 6)}
+
+speaker_ids = ['1', '2']
 speakers = {
             "4": {"1": TTS("1", config, 4), "2": TTS("2", config, 4)}
            }
@@ -47,19 +49,16 @@ def auth():
         raise Unauthorized('Invalid token')
 
     token = token[len('Bearer '):]
-
-    # Check cache for user
     user = cache.get(token)
     if user is None:
-        # If not in cache, query the database
         user = User.query.filter(User.token == token).first()
         if user is not None:
-            # Cache the user for future requests
             cache.set(token, user)
 
     if user is None:
         raise Unauthorized('Incorrect token')
-
+    if not user.has_access:
+        raise Unauthorized('Unauthorized')
     g.user = user
 
 
@@ -70,7 +69,7 @@ def before_request():
 def tts():
     
     try:
-        form = Validator(request, speaker_ids)
+        form = Validator(request, speaker_ids, g.user)
         current_utc_time = datetime.utcnow()
         new_query = Query(user_id=g.user.id, text_length=0, date=current_utc_time.replace(tzinfo=pytz.utc).astimezone(kyrgyzstan_timezone))
         if form.validate():
