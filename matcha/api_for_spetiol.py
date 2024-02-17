@@ -18,20 +18,13 @@ kyrgyzstan_timezone = pytz.timezone('Asia/Bishkek')
 
 app = Flask(__name__)
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
-with open('./config.json', 'r') as config_file:
+with open('./matcha/config.json', 'r') as config_file:
     config = json.load(config_file)
 config_jwt_token = config.get('jwt_token')
 speaker_ids = ['1', '2']
+# speakers = {"1": TTS("1"), "2": TTS("2")}
 
-#"0": {"1": TTS("1", config, 0), "2": TTS("2", config, 0)},
-#"1": {"1": TTS("1", config, 1), "2": TTS("2", config, 1)},
-#"2": {"1": TTS("1", config, 2), "2": TTS("2", config, 2)},
-#"3": {"1": TTS("1", config, 3), "2": TTS("2", config, 3)},
-#"5": {"1": TTS("1", config, 5), "2": TTS("2", config, 5)},
-#"6": {"1": TTS("1", config, 6), "2": TTS("2", config, 6)}
-speakers = {
-            "4": {"1": TTS("1", config, 4), "2": TTS("2", config, 4)}
-           }
+speakers = {"4": {"1": TTS("1", config, 4), "2": TTS("2", config, 4)}}
 db_config = config.get('db_conf')
 app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql://{db_config.get('user_name')}:{db_config.get('password')}@localhost:3306/{db_config.get('db_name')}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -70,30 +63,21 @@ def before_request():
 def tts():
     
     try:
-        form = Validator(request, speaker_ids)
         current_utc_time = datetime.utcnow()
         new_query = Query(user_id=g.user.id, text_length=0, date=current_utc_time.replace(tzinfo=pytz.utc).astimezone(kyrgyzstan_timezone))
-        if form.validate():
 
-            text = form.getText()
-            speaker_id = form.getSpeaker()
-            model = speakers[str(g.user.device)][speaker_id]
-            result = model.generate_audio(text)
-            new_query.text_length = len(text)
-            new_query.status = 1
-            db.session.add(new_query)
-            db.session.commit()
-            new_response = SuccessfulQuery(query_id=new_query.id, audio_path=result)
-            db.session.add(new_response)
-            db.session.commit()
-            return send_file(result, mimetype='audio/mpeg')
-        else:
-            errors = form.getErrorMessage()
-            new_query.error_message = errors
-            new_query.status = 0
-            db.session.add(new_query)
-            db.session.commit()
-            return jsonify({'status': 'error', 'message': 'Validation failed', 'errors': errors}), 400
+        text = request.json.get('text')
+        speaker_id = str(request.json.get('speaker_id'))
+        model = speakers[str(g.user.device)][speaker_id]
+        result = model.generate_audio(text)
+        new_query.text_length = len(text)
+        new_query.status = 1
+        db.session.add(new_query)
+        db.session.commit()
+        new_response = SuccessfulQuery(query_id=new_query.id, audio_path=result)
+        db.session.add(new_response)
+        db.session.commit()
+        return send_file(result, mimetype='audio/mpeg')
     except Exception as e:
         message = f"Error processing request: {e}"
         print(message)
@@ -106,5 +90,4 @@ def tts():
 def hello():
     return "Welcome to TTS KG Application!"
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
-
+    app.run(host='0.0.0.0', debug=True, port="8682")
