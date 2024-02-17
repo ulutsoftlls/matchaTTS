@@ -18,15 +18,14 @@ app = Flask(__name__)
 
 with open('./matcha/config.json', 'r') as config_file:
     config = json.load(config_file)
-config_jwt_token = config.get('jwt_token')
+
 speaker_ids = ['1', '2']
 # speakers = {"1": TTS("1"), "2": TTS("2")}
 # "2": {"1": TTS("1", 2), "2": TTS("2", 2)},
 # "3": {"1": TTS("1", 3), "2": TTS("2", 3)},
-speakers = {"4": {"1": TTS("1", 4), "2": TTS("2", 4)},
-            "5": {"1": TTS("1", 5), "2": TTS("2", 5)},
-            "6": {"1": TTS("1", 6), "2": TTS("2", 6)},
-            "7": {"1": TTS("1", 7), "2": TTS("2", 7)}}
+speakers = {
+            "0": {"1": TTS("1", config, 0), "2": TTS("2", config, 0)}
+           }
 db_config = config.get('db_conf')
 app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql://{db_config.get('user_name')}:{db_config.get('password')}@localhost:3306/{db_config.get('db_name')}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -52,7 +51,7 @@ def before_request():
 @app.route('/api/tts', methods=['POST'])
 def tts():
     try:
-        form = Validator(request, speaker_ids)
+        form = Validator(request, speaker_ids, g.user)
         current_utc_time = datetime.utcnow()
         new_query = Query(user_id=g.user.id, text_length=0, date=current_utc_time.replace(tzinfo=pytz.utc).astimezone(kyrgyzstan_timezone))
         if form.validate():
